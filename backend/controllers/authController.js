@@ -18,6 +18,6 @@ exports.login = async (req, res) => {
   const claveValida = await bcrypt.compare(clave, usuario.clave);
   if (!claveValida) return res.status(401).json({ mensaje: 'Clave incorrecta' });
 
-  const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET);
+  const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, { expiresIn: '2h' });
   res.json({ token });
 };
