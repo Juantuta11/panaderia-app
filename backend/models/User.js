@@ -1,3 +1,5 @@
+
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -8,7 +10,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Eliminar el password al convertir el documento a JSON
 userSchema.set('toJSON', {
   transform: (doc, ret) => {
     delete ret.password;
@@ -17,5 +18,6 @@ userSchema.set('toJSON', {
 });
 
 module.exports = mongoose.model('User', userSchema);
+
 
 

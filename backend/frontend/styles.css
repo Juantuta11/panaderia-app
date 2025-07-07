@@ -1,0 +1,36 @@
+ 
+#productos p {
+  background-color: #f9f2e8;
+  border: 1px solid #e0c9a6;
+  padding: 0.6rem;
+  margin: 0.4rem 0;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+#productoId {
+  padding: 0.4rem;
+  border-radius: 6px;
+  border: 1px solid #d2a679;
+  background-color: #fff8f0;
+}
+#productos p:hover {
+  background-color: #ffe8cc;
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+.titulo-seccion {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #a65f2f;
+  margin-bottom: 0.8rem;
+}
+#productos p {
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+@media screen and (max-width: 600px) {
+  #productos p {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
