@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # panaderia-app
 ## 🛠️ Migración de Estructura
 
@@ -7,3 +8,6 @@
 
 ### 📁 Estructura Nueva
 
+=======
+# panaderia-app
+>>>>>>> daff2edabc7ece5e3685bcd4856c4c51fbde08b8
