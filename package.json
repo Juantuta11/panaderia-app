@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "server": "node nuevo-backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder"
   },
   "keywords": [],
   "author": "Maira y Juan",
@@ -17,6 +18,23 @@
     "mongoose": "^8.16.0"
   },
   "devDependencies": {
-    "electron": "^30.0.0"
+    "electron": "^30.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.maira.panaderia",
+    "productName": "PanaderiaApp",
+    "directories": {
+      "buildResources": "assets"
+    },
+    "files": [
+      "electron",
+      "frontend",
+      "nuevo-backend",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    }
   }
 }
