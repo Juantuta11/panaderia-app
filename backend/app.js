@@ -3,11 +3,7 @@ const connectDB = require('./db');
 
 const app = express();
 const PORT = 3000;
-<<<<<<< HEAD
 app.use(express.static('public'));
-=======
-
->>>>>>> daff2edabc7ece5e3685bcd4856c4c51fbde08b8
 app.use(express.json());
 
 const { ObjectId } = require('mongodb');
@@ -74,8 +70,7 @@ require('dotenv').config();
 connectDB();
 
 app.use(express.json());
-app.use(express.static('public')); // Para servir HTML
-app.use('/api/products', productRoutes);
+app.use(express.static('public'));app.use('/api/products', productRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));

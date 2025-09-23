@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Panadería App</title>
+</head>
+<body>
+  <h1>Bienvenida, Maira</h1>
+
+  <button onclick="consultarTotal()">Consultar total general</button>
+  <p id="resultado"></p>
+
+  <button onclick="consultarResumen()">Ver resumen por producto</button>
+  <table border="1" id="tablaResumen" style="margin-top:10px; display:none;">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Total vendido</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    function consultarTotal() {
+      fetch('/ventas/total-general')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('resultado').textContent =
+            'Total general en pesos: $' + data.total;
+        })
+        .catch(() => {
+          document.getElementById('resultado').textContent =
+            'Error al consultar el total';
+        });
+    }
+
+    function consultarResumen() {
+      fetch('/ventas/resumen-productos')
+        .then(res => res.json())
+        .then(data => {
+          const tabla = document.getElementById('tablaResumen');
+          const cuerpo = tabla.querySelector('tbody');
+          cuerpo.innerHTML = '';
+          data.forEach(item => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `<td>${item.producto}</td><td>${item.totalCantidad}</td>`;
+            cuerpo.appendChild(fila);
+          });
+          tabla.style.display = 'table';
+        })
+        .catch(() => {
+          alert('Error al consultar el resumen');
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # panaderia-app
 ## 🛠️ Migración de Estructura
 
@@ -7,7 +7,4 @@
 ✅ Se adoptó una estructura modular que organiza mejor los controladores, modelos, rutas y frontend para el desarrollo stand-alone de la aplicación de panadería.
 
 ### 📁 Estructura Nueva
-
-=======
 # panaderia-app
->>>>>>> daff2edabc7ece5e3685bcd4856c4c51fbde08b8
