@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - Panadería App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      padding: 2em;
+      max-width: 400px;
+      margin: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    h2 { text-align: center; color: #a0522d; }
+    input, button {
+      display: block;
+      width: 100%;
+      margin: 1em 0;
+      padding: 0.8em;
+      font-size: 1em;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #ff8c00;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #mensaje {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h2>Registro de Usuario</h2>
+  <form id="form-registro">
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="email" id="correo" placeholder="Correo electrónico" required>
+    <input type="password" id="contraseña" placeholder="Contraseña" required>
+    <button type="submit">Registrarse</button>
+  </form>
+  <div id="mensaje"></div>
+
+  <script>
+    document.getElementById('form-registro').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const contraseña = document.getElementById('contraseña').value;
+
+      fetch('http://localhost:3000/api/usuarios/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, correo, contraseña })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('mensaje').textContent = `${data.icon} ${data.mensaje}`;
+        document.getElementById('mensaje').style.color = data.icon === '✅' ? 'green' : 'red';
+
+        if (data.icon === '✅') {
+          setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+        }
+      })
+      .catch(err => {
+        document.getElementById('mensaje').textContent = '✘ Error de conexión con el servidor';
+        document.getElementById('mensaje').style.color = 'red';
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>

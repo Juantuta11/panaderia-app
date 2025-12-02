@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Panadería App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #a0522d;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    nav {
+      background-color: #ff8c00;
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      padding: 1em;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      padding: 2em;
+      text-align: center;
+    }
+    h2 {
+      color: #a0522d;
+    }
+    .card-container {
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      margin-top: 2em;
+    }
+    .card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 2em;
+      width: 200px;
+      text-align: center;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    }
+    .card a {
+      display: block;
+      margin-top: 1em;
+      padding: 0.8em;
+      background-color: #ff8c00;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .card a:hover {
+      background-color: #e67300;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Panadería-App</h1>
+  </header>
+  <nav>
+    <a href="productos.html">Productos</a>
+    <a href="reportes.html">Reportes</a>
+    <a href="index.html">Salir</a>
+  </nav>
+  <main>
+    <h2>Bienvenido al Dashboard</h2>
+    <p>Selecciona una opción para continuar:</p>
+    <div class="card-container">
+      <div class="card">
+        <h3>Gestión de Productos</h3>
+        <p>Agrega, elimina y consulta productos.</p>
+        <a href="productos.html">Ir a Productos</a>
+      </div>
+      <div class="card">
+        <h3>Reportes de Ventas</h3>
+        <p>Consulta reportes dinámicos desde MongoDB.</p>
+        <a href="reportes.html">Ir a Reportes</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

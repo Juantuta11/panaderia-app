@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reportes - Panadería App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #a0522d;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    nav {
+      background-color: #ff8c00;
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      padding: 1em;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover { text-decoration: underline; }
+    main { padding: 2em; text-align: center; }
+    h2 { color: #a0522d; }
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      width: 80%;
+      background: white;
+      border: 1px solid #ddd;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.8em;
+      text-align: center;
+    }
+    th {
+      background-color: #ff8c00;
+      color: white;
+    }
+    form {
+      margin-top: 2em;
+      text-align: center;
+    }
+    input, button {
+      margin: 0.5em;
+      padding: 0.6em;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #ff8c00;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background-color: #e67300; }
+    #mensaje {
+      margin-top: 1em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Panadería-App</h1>
+  </header>
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="productos.html">Productos</a>
+    <a href="index.html">Salir</a>
+  </nav>
+  <main>
+    <h2>Reportes de Ventas</h2>
+    <table id="tabla-reportes">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <form id="form-reporte">
+      <input type="text" id="producto" placeholder="Nombre del producto" required>
+      <input type="number" id="cantidad" placeholder="Cantidad" required>
+      <input type="number" id="total" placeholder="Total" required>
+      <button type="submit">Agregar Reporte</button>
+    </form>
+
+    <div id="mensaje"></div>
+  </main>
+
+  <script>
+    const tablaBody = document.querySelector('#tabla-reportes tbody');
+    const mensaje = document.getElementById('mensaje');
+    const form = document.getElementById('form-reporte');
+
+    // Cargar reportes
+    function cargarReportes() {
+      fetch('http://localhost:3000/api/reportes')
+        .then(res => res.json())
+        .then(data => {
+          tablaBody.innerHTML = '';
+          data.forEach(rep => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+              <td>${rep.producto}</td>
+              <td>${rep.cantidad}</td>
+              <td>$${rep.total}</td>
+            `;
+            tablaBody.appendChild(fila);
+          });
+        })
+        .catch(err => {
+          mensaje.textContent = '✘ Error al cargar reportes';
+          mensaje.style.color = 'red';
+          console.error(err);
+        });
+    }
+
+    // Agregar reporte
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const producto = document.getElementById('producto').value.trim();
+      const cantidad = document.getElementById('cantidad').value.trim();
+      const total = document.getElementById('total').value.trim();
+
+      if (!producto || !cantidad || !total) {
+        mensaje.textContent = '✘ Debes completar todos los campos';
+        mensaje.style.color = 'red';
+        return;
+      }
+
+      fetch('http://localhost:3000/api/reportes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ producto, cantidad, total })
+      })
+      .then(res => res.json())
+      .then(data => {
+        mensaje.textContent = `${data.icon} ${data.mensaje}`;
+        mensaje.style.color = data.icon === '✅' ? 'green' : 'red';
+
+        if (data.icon === '✅') {
+          form.reset(); // ✅ Limpia todos los campos automáticamente
+          cargarReportes();
+        }
+      })
+      .catch(err => {
+        mensaje.textContent = '✘ Error al agregar reporte';
+        mensaje.style.color = 'red';
+        console.error(err);
+      });
+    });
+
+    // Inicializar
+    cargarReportes();
+  </script>
+</body>
+</html>

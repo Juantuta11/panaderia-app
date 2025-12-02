@@ -1,30 +1,28 @@
-
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/product');
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
+app.use(cors());
 
 // Conexión a MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ Conectado a MongoDB'))
-  .catch(err => console.error('❌ Error al conectar a MongoDB:', err));
+mongoose.connect('mongodb://localhost:27017/panaderia')
+  .then(() => console.log('✔ Conectado a MongoDB'))
+  .catch(err => console.error('✘ Error de conexión a MongoDB', err));
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'));
+// Importar rutas (cada archivo debe exportar router con "module.exports = router")
+const usuariosRouter = require('./usuarios');
+const productosRouter = require('./productos');
+const reportesRouter = require('./reportes');
 
-// Rutas
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
+// Usar rutas
+app.use('/api/usuarios', usuariosRouter);
+app.use('/api/productos', productosRouter);
+app.use('/api/reportes', reportesRouter);
 
-// Iniciar servidor
+// Arrancar servidor
+const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`✔ Servidor corriendo en http://localhost:${PORT}`);
 });
